@@ -17,11 +17,13 @@ public class User2 extends Participant {
 
     @Override
     public void setname(String name) {
+
         this.name = name;
     }
 
     @Override
     public String getName() {
+
         return name;
     }
 

@@ -2,38 +2,33 @@ import ChainOfResponsibilityEx1.ConsoleBasedLogger;
 import ChainOfResponsibilityEx1.DebugBasedLogger;
 import ChainOfResponsibilityEx1.ErrorBasedLogger;
 import ChainOfResponsibilityEx1.Logger;
-import CommandEx1.*;
-import CommandEx2.*;
 
-import InterpreterEX1.InfixToPostfixPattern;
-import InterpreterEx2.AndExpression;
-import InterpreterEx2.Expression;
-import InterpreterEx2.OrExpression;
-import InterpreterEx2.TerminalExpression;
-import IteratorEx1.NotificationBar;
-import IteratorEx1.NotificationCollection;
-import MediatorEx1.ApnaChatRoom;
-import MediatorEx1.ApnaChatRoomImpl;
-import MediatorEx1.User1;
-import MediatorEx1.User2;
-import MediatorEx2.ATCMediator;
-import MediatorEx2.Flight;
-import MediatorEx2.IATCMediator;
-import MediatorEx2.Runway;
-import MementoEx1.Caretaker;
-import MementoEx1.Originator;
-import MementoEx2.Article;
-import MementoEx2.ArticleMemento;
-import ObserverEx1.EventSource;
-import ObserverEx1.ResponseHandler1;
-import ObserverEx1.ResponseHandler2;
-import ObserverEx2.Gates;
-import ObserverEx2.Lighting;
-import ObserverEx2.SensorSystem;
-import ObserverEx2.Surveillance;
+import State1.ContextState1;
+import State1.StartState;
+import State1.StopState;
+import State2.Controller;
+import Strategy01.Addition;
+import Strategy01.Context;
+import Strategy01.Multiplication;
+import Strategy01.Subtraction;
+import Strategy2.CreditCardStrategy;
+import Strategy2.Item;
+import Strategy2.PaypalStrategy;
+import Strategy2.ShoppingCart;
+import Template1.Chess;
+import Template1.Game;
+import Template1.Soccer;
+import Template2.GlassHouse;
+import Template2.HouseTemplate;
+import Template2.WoodenHouse;
+import Visitor1.*;
+import Visitor2.Computer;
+import Visitor2.ComputerPart;
+import Visitor2.ComputerPartDisplayVisitor;
 
-import java.util.Arrays;
-import java.util.List;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class MainClass {
 
@@ -49,8 +44,33 @@ public class MainClass {
         return consoleLogger;
     }
 
+    static Controller controller;
+    public static void state2demo(String con) {
+        controller = new Controller();
+        //the following trigger should be made by the user
+        if(con.equalsIgnoreCase("management"))
+            controller.setManagementConnection();
+        if(con.equalsIgnoreCase("sales"))
+            controller.setSalesConnection();
+        if(con.equalsIgnoreCase("accounting"))
+            controller.setAccountingConnection();
+        controller.open();
+        controller.log();
+        controller.close();
+        controller.update();
+    }
 
-    public static void main(String[] args) {
+    //returns the total service charge of all the vehicles that are gone under full service
+    private static int calculateTotal(Vehicle[] vehicles) {
+        VehicleInspector inspector = new VehicleInspection();
+        int total = 0;
+        for(Vehicle vehicle : vehicles){
+            total = total + vehicle.accept(inspector);
+        }
+        return total;
+    }
+
+    public static void main(String[] args) throws IOException {
     /*
        //Chain of Responsibility
         System.out.println("Hello world");
@@ -210,8 +230,11 @@ public class MainClass {
  */
 
 /*
+
+
         //MEDIATOR EX2 FLIGHT
         IATCMediator atcMediator = new ATCMediator();
+
         Flight sparrow101 = new Flight(atcMediator);
         Runway mainRunway = new Runway(atcMediator);
         atcMediator.registerFlight(sparrow101);
@@ -222,8 +245,9 @@ public class MainClass {
 
  */
 
-/*
 
+
+/*
         //INTERPRETER EX1
         String infix = "a*d*c+e";
 
@@ -236,6 +260,8 @@ public class MainClass {
  */
 
 
+
+/*
 
         //Interpreter EX2
         Expression person1 = new TerminalExpression("Nurcan");
@@ -253,8 +279,124 @@ public class MainClass {
         System.out.println(isCommitted.interpreter("Committed, leyla"));
         System.out.println(isCommitted.interpreter("Single, Leyla"));
 
+ */
+/*
+//STRATEGY1
+        BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+        System.out.print("Enter the first value: ");
+        float value1=Float.parseFloat(br.readLine());
+        System.out.print("Enter the second value: ");
+        float value2=Float.parseFloat(br.readLine());
+
+        Context context = new Context(new Addition());
+        System.out.println("Addition = " + context.executeStrategy(value1, value2));
+
+        context = new Context(new Subtraction());
+        System.out.println("Subtraction = " + context.executeStrategy(value1, value2));
+
+        context = new Context(new Multiplication());
+        System.out.println("Multiplication = " + context.executeStrategy(value1, value2));
+
+ */
 
 
+/*
+        //STRATEGY2
+        ShoppingCart cart = new ShoppingCart();
+
+        Item item1 = new Item("1234",10);
+        Item item2 = new Item("5678",40);
+
+        cart.addItem(item1);
+        cart.addItem(item2);
+
+        //pay by paypal
+        cart.pay(new PaypalStrategy("myemail@example.com", "1234"));
+
+        //pay by credit card
+        cart.pay(new CreditCardStrategy("Nurcan Alkis", "1234567890123456", "786", "12/15"));
+
+ */
+
+/*
+        //State ex1
+        ContextState1 context = new ContextState1();
+
+        StartState startState = new StartState();
+        startState.doAction(context);
+
+        System.out.println(context.getState().toString());
+
+        StopState stopState = new StopState();
+        stopState.doAction(context);
+
+        System.out.println(context.getState().toString());
+
+ */
+
+/*
+
+        //State02 example
+        String accounting="accounting";
+        String sales="Sales";
+        String management="Management";
+        state2demo(accounting);
+        System.out.println("------------------");
+        state2demo(sales);
+        System.out.println("------------------");
+
+        state2demo(management);
+
+ */
+/*
+    //TEmplate 1
+        Game chess=new Chess();
+        chess.play();
+        Game soccer=new Soccer();
+        soccer.play();
+
+ */
+
+
+/*
+
+        //Template 2
+        HouseTemplate houseType = new WoodenHouse();
+
+        //using template method
+        houseType.buildHouse();
+        System.out.println("************");
+
+        houseType = new GlassHouse();
+
+        houseType.buildHouse();
+
+ */
+
+
+
+
+/*
+    //Visitor1
+
+        Vehicle[] vehicles = new Vehicle[]{
+                new Car("Black", 2010),
+                new Van(5000, 6),
+                new Motorbike(100, "TVS")
+        };
+        int totalCost = calculateTotal(vehicles);
+        System.out.println("Total Service Charge: " + totalCost);
+
+ */
+
+
+
+
+
+        //Visitor2
+
+        ComputerPart computer = new Computer();
+        computer.accept(new ComputerPartDisplayVisitor());
 
 
 
