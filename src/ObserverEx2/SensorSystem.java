@@ -2,7 +2,7 @@ package ObserverEx2;
 
 import java.util.Enumeration;
 import java.util.Vector;
-
+//observed subject
 public class SensorSystem {
     private Vector listeners = new Vector();
 

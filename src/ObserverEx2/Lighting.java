@@ -1,5 +1,5 @@
 package ObserverEx2;
-
+//observer
 public class Lighting implements AlarmListener{
 
     @Override

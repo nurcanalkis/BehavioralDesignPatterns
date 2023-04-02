@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Observable;
 import java.util.Observer;
-
+//thread class implementing runnable
 public class EventSource extends Observable implements Runnable{
     public void run() {
         try {

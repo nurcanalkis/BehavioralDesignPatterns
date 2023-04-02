@@ -1,5 +1,5 @@
 package ObserverEx2;
-
+//observer
 public class Surveillance extends CheckList implements AlarmListener{
     public void alarm() {
         System.out.println("Surveillance - by the numbers:");

@@ -1,5 +1,5 @@
 package ObserverEx2;
-
+//observer
 public class Gates implements AlarmListener{
 
     @Override
