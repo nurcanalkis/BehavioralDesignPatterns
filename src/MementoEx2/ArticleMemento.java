@@ -11,7 +11,7 @@ public final class ArticleMemento {
         this.title = title;
         this.content = content;
     }
-
+//getter methods
     public long getId() {
         return id;
     }

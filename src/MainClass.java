@@ -358,6 +358,8 @@ public class MainClass {
  */
 
 
+
+
 /*
 
         //Template 2
@@ -372,6 +374,8 @@ public class MainClass {
         houseType.buildHouse();
 
  */
+
+
 
 
 
@@ -393,10 +397,14 @@ public class MainClass {
 
 
 
+
+
         //Visitor2
 
         ComputerPart computer = new Computer();
         computer.accept(new ComputerPartDisplayVisitor());
+
+
 
 
 
